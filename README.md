@@ -60,7 +60,7 @@
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/sanidhya-joshi1/Retro-Cyber-Terminal.git
 cd retro-cyber-terminal
 
 # Install dependencies
@@ -120,9 +120,12 @@ src/
 
 ## 🌟 Screenshots
 
-*Terminal Interface with Matrix Rain*
-*Hidden Puzzle Page*  
-*Digital Vault Unlocked*
+### 🔐 Home Terminal
+![Home Terminal](./docs/images/Retro_Home.png)
+
+### 🎉 Vault Unlocked
+![Vault Unlocked](./docs/images/Retro_Vault.png)
+
 
 ## 🔮 Future Enhancements
 
