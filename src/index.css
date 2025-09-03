@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/* CSS Variables for consistent theming */
+:root {
+  --color-neon-magenta: #ff00ff;
+  --color-neon-cyan: #00ffff;
+  --color-neon-lime: #39ff14;
+  --bg: #000000;
+  --fg: #39ff14;
+  --scanline: rgba(0, 255, 0, 0.03);
+}
+
+html, body, #root { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.3px;
+}
+
+/* CRT scanlines + subtle flicker */
+.crt::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    var(--scanline) 3px
+  );
+  mix-blend-mode: overlay;
+  animation: flicker 6s infinite;
+}
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 80%, 100% { opacity: 0.06; }
+  20%, 22% { opacity: 0.12; }
+}
+
+/* Glitch text effect */
+.glitch {
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 0 6px rgba(57, 255, 20, 0.7);
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+}
+.glitch::before {
+  transform: translate(1px, 0);
+  clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%);
+  animation: glitchTop 2.5s infinite ease-in-out alternate-reverse;
+  color: var(--color-neon-magenta);
+}
+.glitch::after {
+  transform: translate(-1px, 0);
+  clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+  animation: glitchBottom 2.2s infinite ease-in-out alternate;
+  color: var(--color-neon-cyan);
+}
+@keyframes glitchTop {
+  0%   { transform: translate(0.5px, 0); }
+  100% { transform: translate(2px, -0.5px); }
+}
+@keyframes glitchBottom {
+  0%   { transform: translate(-0.5px, 0); }
+  100% { transform: translate(-2px, 0.5px); }
+}
+
+/* Terminal caret */
+.caret::after{
+  content:"▌";
+  margin-left: 2px;
+  animation: blink 1s step-start infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+
+/* Neon hover button */
+.btn-neon {
+ border: 1px solid var(--color-neon-lime);
+  box-shadow: 0 0 0 transparent;
+  transition: box-shadow .2s ease, transform .15s ease, border-color .2s ease;
+}
+.btn-neon:hover {
+  box-shadow: 0 0 8px var(--color-neon-magenta); /* Replace theme('boxShadow.neon') */
+  transform: translateY(-1px);
+  border-color: var(--color-neon-magenta); /* Replace theme('colors.neon.magenta') */
+}
+
+/* Subtle links */
+a { color: var(--color-neon-cyan); }
+a:hover { color: var(--color-neon-magenta); }
